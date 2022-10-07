@@ -5,7 +5,7 @@
 ## 1.下载
 克隆完整项目
 ```git
-git clone https://gitee.com/huyi612/hm-dianping.git
+git clone https://github.com/cs001020/hmdp.git
 ```
 切换分支
 ```git
