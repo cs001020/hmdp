@@ -1,6 +1,6 @@
 # 代码使用说明
 
-视频原地址:
+视频地址:
 - [https://www.bilibili.com/video/BV1cr4y1671t](https://)
 
 项目代码包含2个分支：
