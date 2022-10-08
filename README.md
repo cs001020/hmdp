@@ -1,8 +1,8 @@
 # 代码使用说明
 
 视频地址:
-- [https://www.bilibili.com/video/BV1cr4y1671t](https://)
-- 
+- [https://www.bilibili.com/video/BV1cr4y1671t](https://www.bilibili.com/video/BV1cr4y1671t)
+
 项目代码包含2个分支：
 - master : 主分支，包含完整版代码，作为大家的编码参考使用
 - init : 初始化分支，实战篇的初始代码，建议大家以这个分支作为自己开发的基础代码
