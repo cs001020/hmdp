@@ -1,0 +1,174 @@
+.header{
+    padding: 15px;
+    line-height: 20px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+.header-cancel-btn{
+    font-size: 14px;
+    font-weight: bold;
+}
+.header-commit-btn{
+    color: white;
+    background-color: #F63;
+    padding: 0 12px;
+    border-radius: 15px;
+}
+.header-title i {
+    font-size: 14px;
+}
+.header-title {
+    text-align: center;
+    font-size: 18px;
+    font-family: Hiragino Sans GB,Arial,Helvetica,"\5B8B\4F53",sans-serif;
+}
+.upload-box {
+    padding: 15px;
+    display: flex;
+    overflow-x: scroll;
+}
+.upload-btn {
+    width: 70px;
+    height: 125px;
+    line-height: 40px;
+    text-align: center;
+    align-items: center;
+    border: 1px dashed #3a8ee6;
+    border-radius: 5px;
+    font-size: 30px;
+    color: #82848a;
+    margin-right: 10px;
+}
+.upload-btn i {
+    margin-top: 35px;
+}
+
+.pic-list {
+    display: flex;
+    overflow-x: scroll;
+    height: 125px;
+}
+.pic-box{
+    width: 100px;
+    height: 120px;
+    border-radius: 5px;
+    margin-right: 2px;
+    border: 1px solid #c0ccda;
+    position: relative;
+}
+.pic-box img {
+    width: 100px;
+    height: 120px;
+    border-radius: 5px;
+}
+.pic-box i {
+    position: absolute;
+    z-index: 99;
+    top: 2px;
+    right: 2px;
+    color: gray;
+}
+.blog-title,.blog-content {
+    padding: 5px 15px;
+}
+.blog-title input {
+    width: 100%;
+    line-height: 30px;
+    font-size: 14px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #e6e6e8;
+}
+input::placeholder {
+    font-weight: bold;
+    color: #cccccc;
+}
+textarea::placeholder {
+    color: #cccccc;
+}
+.blog-content textarea{
+    width: 100%;
+    height: 310px;
+    border: 0;
+}
+.blog-shop {
+    color: #82848a;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+.shop-left {
+    color: #111111;
+    font-size: 14px;
+    font-weight: bold;
+}
+.divider {
+    background-color: #f4f4f5;
+    height: 10px;
+}
+.end-gray {
+    background-color: #f4f4f5;
+    height: 100%;
+}
+.mask {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 299;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.3);
+}
+.shop-dialog {
+    position: absolute;
+    z-index: 999;
+    bottom: 0;
+    height: 500px;
+    width: 100%;
+    background-color: #fff;
+}
+.search-bar {
+    display: flex;
+    padding: 15px;
+    line-height: 30px;
+    justify-content: space-between;
+}
+.city-select {
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 10px;
+}
+.search-input {
+    width: 50%;
+    flex-grow: 1;
+    background-color: #f1f1f1;
+    line-height: 30px;
+    align-items: center;
+    border-radius: 20px;
+    display: flex;
+    padding: 0 10px ;
+}
+.search-input input {
+    margin-left: 10px;
+    border: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+}
+input:focus,textarea:focus {
+    outline: none;
+}
+.shop-list {
+    padding: 15px;
+    overflow-y: scroll;
+    height: 100%;
+}
+.shop-item {
+    border-bottom: 1px solid #eae8e8;
+    padding: 8px 0;
+}
+.shop-name {
+    font-size: 14px;
+    font-weight: bold;
+}

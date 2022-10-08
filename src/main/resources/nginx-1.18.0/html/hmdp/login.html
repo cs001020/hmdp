@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <title>黑马点评</title>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="./css/element.css">
+  <link href="./css/main.css" rel="stylesheet">
+  <link href="./css/login.css" rel="stylesheet">
+
+  <style type="text/css">
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="login-container">
+    <div class="header">
+      <div class="header-back-btn" @click="goBack" ><i class="el-icon-arrow-left"></i></div>
+      <div class="header-title">手机号码快捷登录&nbsp;&nbsp;&nbsp;</div>
+    </div>
+    <div class="content">
+      <div class="login-form">
+        <div style="display: flex; justify-content: space-between">
+          <el-input style="width: 60%" placeholder="请输入手机号" v-model="form.phone" >
+          </el-input>
+          <el-button style="width: 38%" @click="sendCode" type="success" :disabled="disabled">{{codeBtnMsg}}</el-button>
+        </div>
+
+        <div style="height: 5px"></div>
+        <el-input placeholder="请输入验证码" v-model="form.code">
+        </el-input>
+        <div style="text-align: center; color: #8c939d;margin: 5px 0">未注册的手机号码验证后自动创建账户</div>
+        <el-button @click="login" style="width: 100%; background-color:#f63; color: #fff;">登录</el-button>
+        <div style="text-align: right; color:#333333; margin: 5px 0"><a href="/login2.html">密码登录</a></div>
+      </div>
+      <div class="login-radio">
+        <div>
+          <input type="radio" name="readed" v-model="radio" value="1">
+          <label for="readed"></label>
+        </div>
+        <div>我已阅读并同意
+          <a href="javascript:void(0)">
+          《黑马点评用户服务协议》</a>、
+          <a href="javascript:void(0)">《隐私政策》</a>
+          等，接受免除或者限制责任、诉讼管辖约定等粗体标示条款
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="./js/vue.js"></script>
+<script src="./js/axios.min.js"></script>
+<!-- 引入组件库 -->
+<script src="./js/element.js"></script>
+<script src="./js/common.js"></script>
+<script src="./js/footer.js"></script>
+<script>
+
+  const app = new Vue({
+    el: "#app",
+    data: {
+      radio: "",
+      disabled: false, // 发送短信按钮
+      codeBtnMsg: "发送验证码", // 发送短信按钮提示
+      form:{
+      }
+    },
+    methods: {
+      login(){
+        if(!this.radio){
+          this.$message.error("请先确认阅读用户协议！");
+          return
+        }
+        if(!this.form.phone || !this.form.code){
+          this.$message.error("手机号和验证码不能为空！");
+          return
+        }
+        axios.post("/user/login", this.form)
+        .then(({data}) => {
+            if(data){
+              // 保存用户信息到session
+              sessionStorage.setItem("token", data);
+            }
+            // 跳转到首页
+            location.href = "/index.html"
+        })
+        .catch(err => this.$message.error(err))
+      },
+      goBack(){
+        history.back();
+      },
+      sendCode(){
+        if (!this.form.phone) {
+          this.$message.error("手机号不能为空");
+          return;
+        }
+        // 发送验证码
+        axios.post("/user/code?phone="+this.form.phone)
+          .then(() => {})
+          .catch(err => {
+            console.log(err);
+            this.$message.error(err)
+          });
+        // 禁用按钮
+        this.disabled = true;
+        // 按钮倒计时
+        let i = 60;
+        this.codeBtnMsg = (i--) + '秒后可重发'
+        let taskId = setInterval(() => this.codeBtnMsg = (i--) + '秒后可重发', 1000);
+        setTimeout(() => {
+          this.disabled = false;
+          clearInterval(taskId);
+          this.codeBtnMsg = "发送验证码";
+        }, 59000)
+      }
+    }
+  })
+</script>
+</body>
+</html>

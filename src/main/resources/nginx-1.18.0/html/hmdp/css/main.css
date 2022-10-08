@@ -1,0 +1,59 @@
+html {
+    font-size: 12px;
+    width: 100%;
+}
+body{
+    margin: 0;
+}
+html,body,#app{
+    height: 100%;
+}
+
+.el-tabs__item {
+    font-size: 14px;
+    font-weight: bold;
+}
+.el-tabs__active-bar {
+    height: 4px;
+    background-image: linear-gradient(to right, #F63, #f5b9a2);
+}
+.foot {
+    width: 100%;
+    height: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 -1px 2px 1px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    bottom: 0;
+}
+.foot .add-btn {
+    width: 38px;
+    height: 38px;
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 18px;
+}
+.foot-box{
+    width: 20%;
+    color: #82848a;
+    text-align: center;
+}
+.foot-view {
+    font-size: 26px;
+}
+.foot-text{
+    font-size: 8px;
+    margin-top: -4px;
+}
+.foot-text, .foot-view{
+    text-align: center;
+}
+.active{
+    color: #ff6633;
+}
+
+/*element-ui的评价星星间隙*/
+.el-rate__icon {
+    margin-right: 0;
+}
+
