@@ -34,6 +34,19 @@ public class VoucherController {
         return Result.ok(voucher.getId());
     }
 
+     /*生成秒杀券，当前时间需要在开始时间和结束时间之中，否则前端不会展示
+    {
+        "shopId": 1,
+            "title": "100元代金券",
+            "subTitle": "周一至周日均可使用",
+            "rules": "全场通用\\n无需预约\\n可无限叠加\\不兑现、不找零\\n仅限堂食",
+            "payValue": 8000,
+            "actualValue": 10000,
+            "type": 1,
+            "stock":100,
+            "beginTime":"2022-10-09T00:00:00",
+            "endTime":"2022-10-10T20:00:00"
+    }*/
     /**
      * 新增秒杀券
      * @param voucher 优惠券信息，包含秒杀信息
