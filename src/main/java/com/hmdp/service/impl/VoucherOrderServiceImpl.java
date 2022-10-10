@@ -9,15 +9,20 @@ import com.hmdp.mapper.VoucherOrderMapper;
 import com.hmdp.service.ISeckillVoucherService;
 import com.hmdp.service.IVoucherOrderService;
 import com.hmdp.utils.RedisIdWorker;
+import com.hmdp.utils.SimpleRedisLock;
 import com.hmdp.utils.UserHolder;
 import org.jetbrains.annotations.NotNull;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -33,6 +38,10 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
     private ISeckillVoucherService seckillVoucherService;
     @Resource
     private RedisIdWorker redisIdWorker;
+    @Resource
+    private RedissonClient redissonClient;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
     /**
      * 自己注入自己为了获取代理对象 @Lazy 延迟注入 避免形成循环依赖
      */
@@ -65,9 +74,28 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
             return Result.fail("库存不足");
         }
         Long userId = UserHolder.getUser().getId();
-        synchronized (userId.toString().intern()) {
-//            IVoucherOrderService voucherOrderService = (IVoucherOrderService) AopContext.currentProxy();
+        //仅限单体应用使用
+        /*synchronized (userId.toString().intern()) {
+            //实现获取代理对象 比较复杂 我采用了自己注入自己的方式
+            IVoucherOrderService proxy = (IVoucherOrderService) AopContext.currentProxy();
             return voucherOrderService.getResult(voucherId);
+        }*/
+        //创建锁对象
+//        SimpleRedisLock simpleRedisLock = new SimpleRedisLock("order:" + userId, stringRedisTemplate);
+        RLock lock = redissonClient.getLock("lock:order:" + userId);
+        //获取锁
+//        boolean isLock = simpleRedisLock.tryLock(1200L);
+        boolean isLock = lock.tryLock();
+        //判断是否获取锁成功
+        if (!isLock){
+            //获取失败,返回错误或者重试
+            return Result.fail("一人一单哦！");
+        }
+        try {
+            return voucherOrderService.getResult(voucherId);
+        } finally {
+            //释放锁
+            lock.unlock();
         }
     }
 
