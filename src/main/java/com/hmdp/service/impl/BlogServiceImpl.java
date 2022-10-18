@@ -23,10 +23,7 @@ import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -148,7 +145,6 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         // 返回id
         return Result.ok(blog.getId());
     }
-
     @Override
     public Result queryBlogOfFollow(Long max, Integer offset) {
         //获取当前用户
