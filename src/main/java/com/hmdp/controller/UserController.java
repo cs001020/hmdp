@@ -48,9 +48,9 @@ public class UserController {
      * @param loginForm 登录参数，包含手机号、验证码；或者手机号、密码
      */
     @PostMapping("/login")
-    public Result login(@RequestBody LoginFormDTO loginForm, HttpSession session){
+    public Result login(@RequestBody LoginFormDTO loginForm){
         // TODO 实现登录功能
-        return userService.login(loginForm,session);
+        return userService.login(loginForm);
 //        return Result.fail("功能未完成");
     }
 
