@@ -11,10 +11,16 @@ import com.hmdp.entity.User;
 import com.hmdp.mapper.UserMapper;
 import com.hmdp.service.IUserService;
 import com.hmdp.utils.RegexUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import java.util.concurrent.TimeUnit;
+
+import static com.hmdp.utils.RedisConstance.LOGIN_CODE_KEY;
+import static com.hmdp.utils.RedisConstance.LOGIN_CODE_TTL;
 import static com.hmdp.utils.SystemConstants.USER_NICK_NAME_PREFIX;
 
 /**
@@ -27,6 +33,8 @@ import static com.hmdp.utils.SystemConstants.USER_NICK_NAME_PREFIX;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     public Result sendCode(String phone, HttpSession session) {
@@ -35,6 +43,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         String code = RandomUtil.randomNumbers(6);
         session.setAttribute("code",code);
+        //set k v ex
+        stringRedisTemplate.opsForValue().set(LOGIN_CODE_KEY+phone,code,LOGIN_CODE_TTL, TimeUnit.MINUTES);
+
         log.debug("发送短信验证码成功,验证码："+code);
         return Result.ok();
     }
@@ -68,6 +79,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
         // 存在--保存用户
+        // 保存在
         session.setAttribute("user", userDTO);
 
         return Result.ok("登录成功");
