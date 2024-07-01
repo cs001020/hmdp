@@ -17,6 +17,8 @@ public class HmDianPingApplication {
     public static void main(String[] args) {
         SpringApplication.run(HmDianPingApplication.class, args);
         System.out.println("这是dev开发分支");
+        System.out.println("dev先pull master后");
+        System.out.println("master再pull dev");
     }
 
 }
