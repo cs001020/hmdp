@@ -2,7 +2,7 @@ package com.hmdp.utils;
 
 import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+//import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
